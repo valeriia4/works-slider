@@ -1,0 +1,183 @@
+// variables
+$mainColor: #444;
+$mainBackground: #fff;
+
+$container: 1200px;
+$colGups: 15px;
+
+
+$textFont-size: 1rem;  // 16px
+$linkColor: blue;
+
+$breakpoints: (
+  xs: 0,
+  sm: 575px,
+  md: 768px,
+  lg: 1025px,
+  xl: 1200px,
+  xxl: 1440px
+  );
+
+
+
+  //===========  mixins start ===========//
+
+// columns
+$columns: 12;
+$col: $columns;
+$mainFont: 'Poppins', sans-serif;
+
+@mixin col($col, $columns) {
+  width: percentage($col/$columns);
+}
+
+
+//===========  mixins end ===========//
+
+@mixin col-create(){
+  @while $col > 0 {
+
+    .col-#{$col} {
+
+      @include col($col, $columns);
+    }
+
+    $col: $col - 1;
+  }
+}
+
+
+.container{
+  max-width: $container;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+// layout
+
+.row{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -$colGups;
+  margin-left: -$colGups;
+}
+
+[class^='col']{
+  padding-left:$colGups;
+  padding-right:$colGups;
+  width: 100%;
+  min-height: 1px;
+}
+
+@include col-create()
+
+
+// main styles
+
+body{
+  font-family: sans-serif;
+  font-size: 1rem;
+}
+
+//buttons
+a, button{
+  transition: .3s ease-in;
+  transition-property: color, background-color, opacity;
+  svg{
+    fill:currentColor;
+  }
+}
+button, .button{
+  cursor: pointer;
+}
+
+.ba-header{
+  background-color: #fff;
+  padding-top: 60px;
+  position: relative;
+  &__text{
+    font-size: 1.125rem;
+    font-family: $mainFont;
+    color: rgb(48, 48, 48);
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  &__title{
+    font-size: 5.375rem;
+    font-family: $mainFont;
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    line-height: 1.047;
+    text-align: center;
+    margin-bottom: 100px;
+  }
+  &__plus{
+    position: absolute;
+    right: 370px;
+    top: 40px;
+  }
+  &__triangle{
+    position: absolute;
+    left: 150px;
+    top: 240px;
+  }
+}
+main{
+  margin-left: 170px;
+  margin-bottom: 130px;
+}
+.ba-slider{
+  .slide{
+    position: relative;
+    margin-left: 45px;
+    .hov{
+      padding: 20px;
+      padding-top: 250px;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      &:hover{
+        background-color: rgba(50, 234, 170, 0.9);
+        opacity: 1;
+      }
+      &__text{
+        max-width: 70%;
+        font-size: 1.75rem;
+        font-family: $mainFont;
+        color: rgb(255, 255, 255);
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      &__autor{
+        font-size: 0.875rem;
+        font-family: $mainFont;
+        color: rgb(255, 255, 255);
+        font-weight: normal;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 90px;
+  width: 90px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.prev{
+  left: -150px;
+}
+.next {
+  right: 20px;
+}
